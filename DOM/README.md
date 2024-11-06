@@ -1,6 +1,6 @@
-# DOM
+# DOM (Document Object Model)
 
-1. DOM (Document Object Model) is the representation of the structure of a web page in the form of tree of objects. For e.g The <html> tag is parent to <body>, <body> is parent to <div> and so on. So this is a tree, heirarchical representation called DOM.
+1. DOM (Document Object Model) is the representation of the structure of a web page in the form of tree of objects. For e.g The `<html>` tag is parent to `<body>`, `<body>` is parent to `<div>` and so on. So this is a tree, heirarchical representation called DOM.
 
 2. The DOM structures the HTML Document (Web Page) in a tree of documents, allowing the scripts (JS files) to manipulate the content on the page dynamically.
 
@@ -42,9 +42,11 @@
      - This is not a function but just an attribute of these functions. This attribute just extracts the data inside of the specified component.
 
    - `removeChild()`:
+
      - This function is used to delete a specific child node of the curent node.
      - So suppose there are two `<div>` child nodes inside a parent `<div>` node then the element with specified ID would be deleted.
      - So this can be shown with an example as follows:
+
        ```html
        <body>
          <div id="todo-1">
@@ -59,8 +61,42 @@
            function deleteTodo(index) {
              var elementToDelete = document.querySelector("#todo-" + index); // select the component to be deleted
              var parent = elementToDelete.parentNode; // take out its parent
-             parent.deleteChild(elementToDelete); // delete the component through this parent
+             parent.removeChild(elementToDelete); // delete the component through this parent
            }
          </script>
        </body>
+       ```
+
+   - `createElement()`:
+
+     - This function creates an element outside the `document` object.
+     - Hence this element (component) can't be found initially on the document structure of the webpage.
+
+   - `appendChild()`:
+
+     - This function appends a component as a child node to the current node.
+     - Basically it adds a new component inside the current component.
+     - Combining these two functions together as follows:
+       ```html
+       <html>
+         <body>
+           <div id="top-div">hi there!</div>
+         </body>
+         <script>
+           var divEl = document.createElement("div"); // create a new element
+           divEl.innerHTML = "hi there pt.2"; // some content inside the new element
+           let parent = document.querySelector("body"); // selecting the parent node i.e the body
+           parent.appendChild(divEl); // adding this newly created element to the webpage
+         </script>
+       </html>
+       ```
+
+   - `setAttribute()`:
+     - It sets an attribute to a newly create or previously existing element dynamically.
+     - It takes two parameters, one is the name of the attribute and other is the value of the attribute.
+     - This can be shown in the code as follow:
+       ```javascript
+       const newElement = document.createElement("div");
+       let value = 1;
+       newElement.setAttribute("id", value); // name of the attribute is "id" and value is 1
        ```
