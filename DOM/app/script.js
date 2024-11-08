@@ -1,23 +1,26 @@
 let counter = 1;
-function addTodo() {
-    // extract the element and its value
-    const inputEl = document.querySelector("input");
-    const todoText = counter + "." + " " + inputEl.value; // formatted todoText
-    
 
-    // create a new div element
-    const divEl = document.createElement("div");
-    divEl.setAttribute("id", counter);
-    // fill the new element with the todoText
-    divEl.innerHTML = "<div>" + todoText + "</div><button onClick='deleteTodo(" + counter + ")'>Delete Todo</button>"; 
-    const parent = document.querySelector("body"); // selecting the parent
-    parent.appendChild(divEl); // added the div to the document
+function addTodo() {
+    // extract the text from the input box
+    const inputEl = document.querySelector("input");
+    const todoText = counter + "." + " " + inputEl.value;
+
+    // forming a new element and setting an attribute to it
+    const newEl = document.createElement("div");
+    newEl.setAttribute("id", counter);
+
+    // populating this new element
+    newEl.innerHTML = "<div>" + todoText + "</div><button onClick='deleteTodo("+ counter +")'>Delete Todo</button>"
+
+    // adding the new element to the webpage
+    const parent = document.querySelector("body");
+    parent.appendChild(newEl);
 
     counter += 1;
 }
 
 function deleteTodo(index) {
-    var elementToDelete = document.getElementById(index); // select the component to be deleted
-    var parent = elementToDelete.parentNode; // take out its parent
-    parent.removeChild(elementToDelete); // delete the component
+    let elementToDelete = document.getElementById(index); // get element to delete
+    let parent = elementToDelete.parentNode; // take its parent
+    parent.removeChild(elementToDelete); // delete the element to be deleted
 }
