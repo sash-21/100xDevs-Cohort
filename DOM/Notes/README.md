@@ -100,3 +100,43 @@
        let value = 1;
        newElement.setAttribute("id", value); // name of the attribute is "id" and value is 1
        ```
+
+## State Derived Frontends:
+
+1. To make frontends easier to code the concept of `state` came into the picture. When we'll learn `React.js` this will be more clear to understand.
+
+2. The 3 important `jargons` to understand in it are:
+
+- `State`:
+
+  - This is the variable part present on the application.
+  - For e.g In **LinkedIn**, for the posts, the name of the person who posted, profile picture, title of the post, images in the post are variable. These things will change from person to person.
+  - All these variable things are referred to as state.
+
+- `Components`:
+
+  - The rendering of the states on the screen is referred to as components.
+  - For e.g In **LinkedIN** posts, the structure of the post is the same, the font of the username, title etc is same, the color of the post card, margin & corners, buttons present on the post, effects on the post(such as hovering) are all the same.
+  - The state data is just added according to the components set. So the way the states are rendered onto the application are called as components.
+
+![State & Component](./imgs/state_component.png)
+
+- This image shows that basically the component is the actual part of the application, and state the is dynamic data that is filled out in these components differentiating from user to user.
+
+- The component is the wireframe (a blueprint, or a raw structure) in which the dynamic state data is inserted. An application can have multiple components, suppose in this case of LinkedIN, the posts, the titlebar etc are all the components.
+
+- The state can be observed as a JSON, containing data for a particular field or context.
+
+![Component WireFrame](./imgs/component.png)
+
+- So if we apply the state to this kind of wireframe (component) then the final outcome would be something like a LinkedIN post as we can see in the first image.
+
+- `Rendering`;
+
+  - This means taking the `state` data and putting it inside the `component` to show it over the `DOM`.
+  - Rendering basically means printing something, and here we want to print (show) the component with its state on the DOM (web app in easier words).
+  - So combining state and component and showing it on the DOM is rendering.
+
+3. In the `app` directory we tried to develop a todo application using the regular method to poulate `DOM`. Similarly in the `app2` directory we've implemented the concept of using `state & components` method to write the frontend of the todo application. The difference can be seen clearly.
+
+4. Basically the code written in the `app2` project is the way (most likely), react code is written too.
