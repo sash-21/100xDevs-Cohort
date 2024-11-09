@@ -140,3 +140,9 @@
 3. In the `app` directory we tried to develop a todo application using the regular method to poulate `DOM`. Similarly in the `app2` directory we've implemented the concept of using `state & components` method to write the frontend of the todo application. The difference can be seen clearly.
 
 4. Basically the code written in the `app2` project is the way (most likely), react code is written too.
+
+5. So if to give a brief overview, what react does is, we just have to write the functions to add components, delete components or some similar operations and making all the `DOM` based calls i.e `.querySelector()`, `.appendChild()`, `.createElement()` etc is done by React.
+
+6. In the current project what we're doing is whenever the state changes, we are taking the whole state back, emptying the whole DOM and filling out the components based on the new state present.
+
+7. On the other hand what React does is, it keeps the track of the state and matches it with the `DOM`. Now whenever the state changes, then React finds diff between the previous version of the state and current versions and accordingly adds the new element to the DOM. This process of finding the diff and adding making the changes to the DOM is called **Reconciliation**.
