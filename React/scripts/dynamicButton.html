@@ -1,0 +1,16 @@
+<html>
+    <title>Dynamic Button</title>
+    <body>
+        <div>
+            <button onclick="updateCounter()" id="btn">Counter 0</button>
+        </div>
+        <script>
+            function updateCounter() {
+                const currentVal = document.getElementById("btn").innerHTML;
+                const counter = currentVal.split(" ")[1];
+                const newCounter = parseInt(counter) + 1;
+                document.getElementById("btn").innerHTML = "Counter " + newCounter;
+            }
+        </script>
+    </body>
+</html>
