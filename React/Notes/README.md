@@ -54,11 +54,73 @@
 
 10. The React code is written in files with extension `.jsx`. So this code doesn't exactly return any `html` rather it returns `xml` and that's why the files are written with the extension `.jsx` which is knows as Javascript XML. So a component in this code returns XML and not HTML.
 
+11. **Conditional Rendering:** Condition rendering simply means to render a component sometimes and sometimes not based on a condition. So suppose I want to make a component go invisible and again come visible every 5 seconds, then I can use something like _conditional rendering_. To give an example code for this:
+
+```javascript
+function App() {
+  let [clockVisible, setClockVisible] = useState(true);
+
+  useEffect(function () {
+    setInterval(function () {
+      setClockVisible((c) => !c);
+    }, 5000);
+  }, []);
+
+  return <div>{clockVisible ? <Clock></Clock> : null}</div>;
+}
+// Assume there is a Clock component down here
+```
+
+12. Now while applying _conditional rendering_ or basically mounting or unmounting a component in react, there can lie some performance issues. If we take an example of the Clock applicaion itself. Then when a clock component unmounts the component disappears from the DOM, but in the background, the clock still keeps on running since we never stopped the clock while unmounting the clock component. To resolve this we have a concept of _cleanup_, so after every unmount that happens we clear the running of the clock and when the component mounts the new clock starts.
+
+```javascript
+function Clock() {
+  let [count, setCount] = useState(0);
+
+  useEffect(function () {
+    let clock = setInterval(function () {
+      setCount((count) => count + 1);
+    }, 1000);
+
+    // cleaning up the clock working
+    return function () {
+      clearInterval(clock);
+    };
+  }, []);
+
+  return (
+    <div>
+      <h1>{count}</h1>
+    </div>
+  );
+}
+```
+
+## Hooks in React.js:
+
+- `useState()`:
+
+  - The `useState()` hook in React let's us add state to our react component.
+  - This can be defined as:
+
+  ```javascript
+  const [count, setCount] = useState(0);
+  ```
+
+  - The `useState()` hook keeps a track over the state variable of the component. So whenever someone calls the `setCount()` function to increase the **count** (state of component), react automatically updates the state by rerendering the DOM and we don't have to do anything manually.
+  - Now for suppose, we want to create a clock, or a stopwatch then we'll use the `setInterval()` function inside the component function to update the **count** (state) every one second. But the problem is everytime the state is updated, the component function is called too. So as the clock goes to a certain limit there alot of flashing going on this is because there are several calls being made for the component concurrently by react.
+  - So what we want is that whenever the clock component is _mounted_ (refer the extra points), only then for once we call the `setInterval` present in the function and not during every _re-render_. To remediate this `useEffect` hook comes into the picture.
+
+- `useEffect()`:
+  - The `useEffect()` hook helps us to apply side effects to our DOM.
+  - We implemented `useEffect()` to trigger only for once when the component was mounted in the DOM.
+  - The `useEffect()` hook takes in two arguments, a callback function and a dependency array.
+
 ### Some other pointers:
 
-1. Any function in React, that starts with "use" keyword are called nothing but _Hooks_. So the `useState` function that is used for defining the state variable in React is a hook.
+- Any function in React, that starts with "use" keyword are called nothing but _Hooks_. So the `useState` function that is used for defining the state variable in React is a hook.
 
-2. For the code snippet where we define the state in React. Code:
+- For the code snippet where we define the state in React. Code:
 
 ```javascript
 const [count, setCount] = useState(0);
@@ -66,10 +128,27 @@ const [count, setCount] = useState(0);
 
 So here the `useState()` function returns two values, suppose it will be `[1, 2]`, then the count will be the first value while the setCount will be the second value.
 
-3. So when we want to update the state we update it by calling the `setCount` and updating the `count` in it.
+- So when we want to update the state we update it by calling the `setCount` and updating the `count` in it.
 
 ```javascript
 setCount(count + 1);
 ```
 
-4. `useState` is a hook that expects two inputs, `[variable, sets]`. a.) **variable**: To store the data. b.) **sets**: To track the data i.e the previous data, current data etc.
+- `useState` is a hook that expects two inputs, `[variable, sets]`. a.) **variable**: To store the data. b.) **sets**: To track the data i.e the previous data, current data etc.
+
+- A react component is nothing but a function that returns us some `HTML`. All the component functions have their name with the first letter capital. So if we're writing a button component in react then it'd look something like this:
+
+```javascript
+function Button() {
+  return (
+    <div>
+      <button>Click Here</button>
+    </div>
+  );
+}
+```
+
+- There are certain life cycle events for components in React such as _mounting_, _re-rendering_, _unmounting_.
+  1. _mounting_: When a component function is called for the first time and it appears on the DOM (webpage), this event is called as mounting of that particular component. Basically when the component appears on the DOM.
+  2. _re-rendering_: When the state of a component is changed and the DOM is modified with the updated state component, this event is called as re-rendering of the component.
+  3. _unmounting_: When a particular component is removed / disappers from the DOM due to an action, this event is called as unmounting of that particular component.
