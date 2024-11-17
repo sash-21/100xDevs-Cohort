@@ -1,16 +1,37 @@
 <html>
-    <title>Dynamic Button</title>
+    <title>Counter Button</title>
     <body>
-        <div>
-            <button onclick="updateCounter()" id="btn">Counter 0</button>
+        <head>Counter Button</head>
+        <div id="buttonParent">
         </div>
-        <script>
-            function updateCounter() {
-                const currentVal = document.getElementById("btn").innerHTML;
-                const counter = currentVal.split(" ")[1];
-                const newCounter = parseInt(counter) + 1;
-                document.getElementById("btn").innerHTML = "Counter " + newCounter;
-            }
-        </script>
     </body>
+    <script>
+        // state for the web page
+        let state = {
+            count: 0,
+        }
+
+        // function triggered when button clicked
+        function onButtonPress() {
+            state.count = state.count + 1;
+            reRenderStateComponent(); // calls for rerendering (Handled by react)
+        }
+
+        // function creates an fresh new button component and sends it for re-rendering
+        function createButtonComponent(count) {
+            const buttonComponent = document.createElement("button");
+            buttonComponent.innerHTML = `Counter ${count}`;
+            buttonComponent.setAttribute("onclick", `onButtonPress()`);
+            return buttonComponent;
+        }
+
+        // reRendering part (Handled by react)
+        function reRenderStateComponent(count) {
+            document.getElementById("buttonParent").innerHTML = "";
+            const buttonComponent = createButtonComponent(state.count); // takes the newly created component with updated state
+            document.getElementById("buttonParent").appendChild(buttonComponent);
+        }
+
+        reRenderStateComponent();
+    </script>
 </html>

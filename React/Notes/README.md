@@ -45,3 +45,31 @@
   - Similary for a LinkedIN topbar the buttons present on it (notifications, home, messaging etc), the search bar present on it (to search people etc) and the topbar itself are some components that we can visually see on the web application.
 
 6. So in simple words, we have to define all the components that will be present on our application for once, and then keep on updating the state so the content keeps on changing dynamically and this will create a _dynamic React website._
+
+7. While writing the react code we just have to take care of defining the global state for the web page, defining all the functions that form the components to be shown on the page, and the functions that get triggered when an event occurs (function to update the counter when button clicked).
+
+8. Remaining tasks are handled by React itself and we need not to define anything extra. So when a function is triggered and the state is changed, React automatically takes the new state and forms a fresh component out of it to show on the web page.
+
+9. Basically the re-rendering part is taken care of by React and this is how such frontend frameworks work under the hood. Can look at the `dynamicButton.html` file to understand how the React code works under the hood.
+
+10. The React code is written in files with extension `.jsx`. So this code doesn't exactly return any `html` rather it returns `xml` and that's why the files are written with the extension `.jsx` which is knows as Javascript XML. So a component in this code returns XML and not HTML.
+
+### Some other pointers:
+
+1. Any function in React, that starts with "use" keyword are called nothing but _Hooks_. So the `useState` function that is used for defining the state variable in React is a hook.
+
+2. For the code snippet where we define the state in React. Code:
+
+```javascript
+const [count, setCount] = useState(0);
+```
+
+So here the `useState()` function returns two values, suppose it will be `[1, 2]`, then the count will be the first value while the setCount will be the second value.
+
+3. So when we want to update the state we update it by calling the `setCount` and updating the `count` in it.
+
+```javascript
+setCount(count + 1);
+```
+
+4. `useState` is a hook that expects two inputs, `[variable, sets]`. a.) **variable**: To store the data. b.) **sets**: To track the data i.e the previous data, current data etc.
