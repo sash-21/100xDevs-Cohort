@@ -115,6 +115,10 @@ function Clock() {
   - The `useEffect()` hook helps us to apply side effects to our DOM.
   - We implemented `useEffect()` to trigger only for once when the component was mounted in the DOM.
   - The `useEffect()` hook takes in two arguments, a callback function and a dependency array.
+  - So we know now that the logic inside the `useEffect` hook runs during a component is mounted on the DOM, and the function returned through the `useEffect` runs its logic when the component is unmounted from the DOM.
+  - During this whole process the logic of `useEffect` was ignored while the DOM was rerendering time to time. This is where the **depencency array** comes into the picture.
+  - The when we define something in the dependency array for the `useEffect` hook, the logic of the `useEffect` also starts running during the rerendering of the component. Initially it just used to run once during the mounting of the component, but now it runs during each and every re render of the component.
+  - Also the cleanup takes place for the state variable defined in the dependency array during every render. So the original state is cleaned up and the new state is assumed as the original one.
 
 ### Some other pointers:
 

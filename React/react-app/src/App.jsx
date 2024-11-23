@@ -1,46 +1,41 @@
 import { useState, useEffect } from "react"
 
 function App() {
-  let [counterVisible, setCounterVisible] = useState(true);
+  const [count, setCount] = useState(0);
+  const [count2, setCount2] = useState(0);
 
-   useEffect(function () {
-    setInterval(function () {
-      setCounterVisible(c => !c); // set counterVisible to false every 5 seconds
-    }, 5000);
-   }, []);
+  function increase() {
+    setCount(count => count + 1);
+  }
+
+  function decrease() {
+    setCount2(count2 => count2 - 1);
+  }
 
   return <div>
-    <b>Hi There!</b>
-    <div style={{visibility: counterVisible ? "visible" : "hidden"}}><Counter></Counter></div>
+    <Counter count={count} count2={count2}></Counter>
+    <button onClick={increase}>Increase Counter</button>
+    <button onClick={decrease}>Decrease Counter</button>
   </div>
-}
+} 
 
-// defined the component function
-function Counter() {
-  const [count, setCount] = useState(0); // defined the state
+function Counter(props) {
 
   useEffect(function () {
-    let clock = setInterval(function () {
-      // setCount(count => count + 1);
-      setCount(function (count) { // alternative for the above line
-        return count + 1;
-      });
-    }, 1000);
+    console.log("mount");
 
     return function () {
-      clearInterval(clock);
+      console.log("unmount");
     }
   }, []);
 
-  // updating the state
-  function increaseCount() {
-    setCount(count + 1);
-  }
+  useEffect(function () {
+    console.log("count has changed");
+  }, [props.count, props.count2]);
 
-  // returning a component with its state
   return <div>
-    <h1 id="text">{count}</h1>
-    <button onClick={increaseCount}>Increse Count</button>
+    Counter! {props.count} <br />
+    Counter2! {props.count2}
   </div>
 }
 
