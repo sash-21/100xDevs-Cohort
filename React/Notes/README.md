@@ -73,6 +73,8 @@ function App() {
 
 12. Now while applying _conditional rendering_ or basically mounting or unmounting a component in react, there can lie some performance issues. If we take an example of the Clock applicaion itself. Then when a clock component unmounts the component disappears from the DOM, but in the background, the clock still keeps on running since we never stopped the clock while unmounting the clock component. To resolve this we have a concept of _cleanup_, so after every unmount that happens we clear the running of the clock and when the component mounts the new clock starts.
 
+13. So in the `useEffect` hook, whenever the context changes the cleanup logic (the function that is returned from `useEffect`) runs first, and then the logic inside the `useEffect` for the new context runs.
+
 ```javascript
 function Clock() {
   let [count, setCount] = useState(0);
@@ -95,6 +97,8 @@ function Clock() {
   );
 }
 ```
+
+13. So the _cleanup_ logic if we take it with the example of the LinkedIn top bar, so then whenever we click the _Home_ button on the top bar, the frontend creates some connections with the backend (calling some APIs, websockets if needed etc). Now when we switch from the _Home_ tab to _Notification_ tab, we need to close all the connections with the backend else it will creat unnecessary overload over the server, this is where the cleanup logic comes to the rescue.
 
 ## Hooks in React.js:
 
