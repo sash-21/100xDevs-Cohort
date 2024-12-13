@@ -1,41 +1,36 @@
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [count2, setCount2] = useState(0);
+  const [currentTab, setCurrentTab] = useState(1);
+  const [tabData, setTabData] = useState({});
+  const [loading, setLoading] = useState(false);
 
-  function increase() {
-    setCount(count => count + 1);
-  }
-
-  function decrease() {
-    setCount2(count2 => count2 - 1);
-  }
+  // sending backend request when the state variable of currentTab changes
+  useEffect(function () {
+    setLoading(true);
+    fetch("https://jsonplaceholder.typicode.com/todos/" + currentTab)
+      .then(async res => { // returns promise
+        const json = await res.json();
+        setTabData(json);
+        setLoading(false);
+      })
+  }, [currentTab])
 
   return <div>
-    <Counter count={count} count2={count2}></Counter>
-    <button onClick={increase}>Increase Counter</button>
-    <button onClick={decrease}>Decrease Counter</button>
-  </div>
-} 
-
-function Counter(props) {
-
-  useEffect(function () {
-    console.log("mount");
-
-    return function () {
-      console.log("unmount");
-    }
-  }, []);
-
-  useEffect(function () {
-    console.log("count has changed");
-  }, [props.count, props.count2]);
-
-  return <div>
-    Counter! {props.count} <br />
-    Counter2! {props.count2}
+    <button onClick={function () {
+      setCurrentTab(1)
+    }} style={{color: currentTab == 1 ? "red" : "black"}}>Todo #1</button>
+    <button onClick={function () {
+      setCurrentTab(2)
+    }} style={{color: currentTab == 2 ? "red" : "black"}}>Todo #2</button>
+    <button onClick={function () {
+      setCurrentTab(3)
+    }} style={{color: currentTab == 3 ? "red" : "black"}}>Todo #3</button>
+    <button onClick={function () {
+      setCurrentTab(4)
+    }} style={{color: currentTab == 4 ? "red" : "black"}}>Todo #4</button>
+    <br />
+    {loading ? "Loading..." : tabData.title}
   </div>
 }
 

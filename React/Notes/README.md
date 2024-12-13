@@ -100,6 +100,35 @@ function Clock() {
 
 13. So the _cleanup_ logic if we take it with the example of the LinkedIn top bar, so then whenever we click the _Home_ button on the top bar, the frontend creates some connections with the backend (calling some APIs, websockets if needed etc). Now when we switch from the _Home_ tab to _Notification_ tab, we need to close all the connections with the backend else it will creat unnecessary overload over the server, this is where the cleanup logic comes to the rescue.
 
+14. The implementation of side effects should be done by using `useEffect()` hook as it will only run the side effect implementing logic once when the component which is dealing with the side effect is mounted on the DOM. Otherwise if we implement the side effects without the `useEffect()` hooks then it leads to execution of the side effect logic every time the component is re-rendered.
+
+15. The `useEffect()` hook let's us perform side effects in functional components in a safe, predictable way. Also if we want to use any state variable inside the `useEffect()` hook then we have to define the variable name inside the `dependency array`.
+
+16. Most of the time while using the `useEffect()` hook we're going to use it this way (Empty Dependency Array):
+
+```javascript
+const [count, setCount] = useState(0);
+
+function increaseCount() {
+  setCount((countVal) => countVal + 1);
+}
+
+useEffect(function () {
+  setInterval(increaseCount, 1000);
+}, []);
+```
+
+17. But sometimes we have to track the state variable hence we could use this too (Using the Dependency Array):
+
+```javascript
+useEffect(
+  function () {
+    setInterval(increaseCount, 1000);
+  },
+  [count]
+);
+```
+
 ## Hooks in React.js:
 
 - `useState()`:
@@ -117,12 +146,18 @@ function Clock() {
 
 - `useEffect()`:
   - The `useEffect()` hook helps us to apply side effects to our DOM.
+  - Side effects are operations that interact with the outside world or have effects beyond component's rendering. For e.g fetching data from an API, modifying DOM manually, subscribing the events (websockets connections, timers, browser events).
+  - These are called side effects because they don't just compute output based on input, they affect things outside the component itself.
   - We implemented `useEffect()` to trigger only for once when the component was mounted in the DOM.
   - The `useEffect()` hook takes in two arguments, a callback function and a dependency array.
   - So we know now that the logic inside the `useEffect` hook runs during a component is mounted on the DOM, and the function returned through the `useEffect` runs its logic when the component is unmounted from the DOM.
   - During this whole process the logic of `useEffect` was ignored while the DOM was rerendering time to time. This is where the **depencency array** comes into the picture.
   - The when we define something in the dependency array for the `useEffect` hook, the logic of the `useEffect` also starts running during the rerendering of the component. Initially it just used to run once during the mounting of the component, but now it runs during each and every re render of the component.
   - Also the cleanup takes place for the state variable defined in the dependency array during every render. So the original state is cleaned up and the new state is assumed as the original one.
+
+### Props:
+
+1. Props are just the values (variables & functions) from the `App` component that can be directly used in the other component functions.
 
 ### Some other pointers:
 
