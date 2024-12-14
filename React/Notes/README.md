@@ -159,6 +159,43 @@ useEffect(
 
 1. Props are just the values (variables & functions) from the `App` component that can be directly used in the other component functions.
 
+2. While creating a **wrapper component**(suppose a card which has a white background and some minor styling) check the cards present on the _LinkedIN_ page every card has the same styling just the inner content changes, these are called the wrapper components which can be reused in various places.
+
+3. We can send props in such components functions named as _children_, so whenever these components are used and whatever content is present in these components directly get rendered without explicitely naming a children field.
+
+```javascript
+function App() {
+  // all the contents in the Card are sent as children props to the function
+  return (
+    <div style={{ display: "flex" }}>
+      <Card>hi there</Card>
+      <Card>
+        <div>
+          What do you want to post? <br />
+          <input type={"input"} />
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+function Card({ children }) {
+  return (
+    <div
+      style={{
+        background: "white",
+        borderRadius: 10,
+        padding: 10,
+        margin: 10,
+        color: "blac",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+```
+
 ### Some other pointers:
 
 - Any function in React, that starts with "use" keyword are called nothing but _Hooks_. So the `useState` function that is used for defining the state variable in React is a hook.
@@ -192,6 +229,74 @@ function Button() {
 ```
 
 - There are certain life cycle events for components in React such as _mounting_, _re-rendering_, _unmounting_.
+
   1. _mounting_: When a component function is called for the first time and it appears on the DOM (webpage), this event is called as mounting of that particular component. Basically when the component appears on the DOM.
   2. _re-rendering_: When the state of a component is changed and the DOM is modified with the updated state component, this event is called as re-rendering of the component.
   3. _unmounting_: When a particular component is removed / disappers from the DOM due to an action, this event is called as unmounting of that particular component.
+
+- **Error Boundary**: Suppose we're handling the data in a component through a backend API and due to some reasons the backend is throwing some errors for which we throw error for this component on the frontend too. But even if error is thrown through this one component it will affect the whole page and the page will crash. For this we create a separate Error Handling class, which if detected an error falls back to another UI component. The error prone component should be wrapped in this class while being returned from the App component. The code for this class is usually used as black box and copy pasted from here to there.
+
+```javascript
+import React from "react";
+
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, info) {
+    console.error("Error caught:", error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <h1>Something went wrong.</h1>;
+    }
+
+    return this.props.children;
+  }
+}
+
+const BuggyComponent = () => {
+  throw new Error("I crashed!");
+};
+
+const App = () => {
+  return (
+    <ErrorBoundary>
+      <BuggyComponent />
+    </ErrorBoundary>
+  );
+};
+```
+
+- **Fragments**: In React, a component can return a single parent element, but it can contain multiple children within that single parent.
+
+  1. Wrong Code:
+
+  ```javascript
+  const MyComponent = () => {
+      return (
+          <h1>Hello</h1>
+          <p>World</p> // This line will cause an error
+      );
+  };
+  ```
+
+  2. Right Code:
+
+  ```javascript
+  const MyComponent = () => {
+    return (
+      <>
+        <h1>Hello</h1>
+        <p>World</p>
+      </>
+    );
+  };
+  ```
