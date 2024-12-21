@@ -1,31 +1,17 @@
 import { useState } from "react";
+import { useFetch } from "./hooks/useFetch";
 
-// Custom hook
-function useCounter() {
-  const [count, setCount] = useState(0);
-
-  function increaseCount() {
-    setCount(c => c + 1);
-  }
-
-  return {
-    count: count,
-    increaseCount: increaseCount
-  };
-}
-
-function App() { 
-  return <div>
-    <Counter />
-  </div>
-}
-
-function Counter() {
-  const {count, increaseCount} = useCounter();
+function App() {
+  const [currentPost, setCurrentPost] = useState(1);
+  const { finalData, loading } = useFetch("https://jsonplaceholder.typicode.com/posts/" + currentPost, 10);
 
   return <div>
-    <button onClick={increaseCount}>Value: {count}</button>
-  </div>
+    <button onClick={() => setCurrentPost(1)}>1</button>
+    <button onClick={() => setCurrentPost(2)}>2</button>
+    <button onClick={() => setCurrentPost(3)}>3</button>
+    <br />
+    {loading ? "Loading..." : JSON.stringify(finalData)}
+  </div> 
 }
 
 export default App;
