@@ -1,6 +1,7 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
-export function useDebounce(fetchFunction) {
+// this hook returns a function which when called will debounce the fetch operation to the backend
+export function useDebounce1(fetchFunction) {
     const currentClock = useRef();  
 
     const fn = () => {
@@ -10,3 +11,21 @@ export function useDebounce(fetchFunction) {
 
     return fn;
 }
+
+// this hook returns a debounce value which when updates is when the fecth opeeration to the backend is called
+export function useDebounce2(value, delay) {
+    const [debounceValue, setDebounceValue] = useState(value);
+
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebounceValue(value);
+        }, delay);
+
+        return () => {
+            clearTimeout(handler);
+        }
+    }, [value, delay]);
+
+
+    return debounceValue;
+ }
