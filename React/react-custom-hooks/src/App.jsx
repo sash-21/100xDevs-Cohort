@@ -1,20 +1,14 @@
-import { useState } from "react";
-import { usePrev } from "./hooks/usePrev";
+import { useDebounce } from "./hooks/useDebounce";
 
 function App() {
-  const [value, setValue] = useState(0);
-  const prev = usePrev(value);
-
-  function increment() {
-    setValue(c => c + 1);
+  function sendDataToBackend() {
+    fetch("api.amazon.com/search/");
   }
 
+  const debouncedFn = useDebounce(sendDataToBackend);
+
   return <div>
-    {value} 
-    <br />
-    <button onClick={increment}>Click Me!</button>
-    <br />
-    The previous value was: {prev}
+    <input type="text" onChange={debouncedFn}></input>
   </div>
 }
 
