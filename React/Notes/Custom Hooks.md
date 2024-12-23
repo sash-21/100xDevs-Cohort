@@ -123,4 +123,4 @@ export function useDebounce2(value, delay) {
 }
 ```
 
-7. We can explore the library ![UseHooks](https://usehooks.com/) to get the direct implementation for these hooks to make life easier.
+7. We can explore the library [UseHooks](https://usehooks.com/) to get the direct implementation for these hooks to make life easier.
