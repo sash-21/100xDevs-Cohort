@@ -102,7 +102,7 @@ function Clock() {
 
 14. The implementation of side effects should be done by using `useEffect()` hook as it will only run the side effect implementing logic once when the component which is dealing with the side effect is mounted on the DOM. Otherwise if we implement the side effects without the `useEffect()` hooks then it leads to execution of the side effect logic every time the component is re-rendered.
 
-15. The `useEffect()` hook let's us perform side effects in functional components in a safe, predictable way. Also if we want to use any state variable inside the `useEffect()` hook then we have to define the variable name inside the `dependency array`.
+15. The `useEffect()` hook let's us perform side effects in functional components in a safe, predictable way. Also if we want to use any state variable inside the `useEffect()` hook then we have to define the variable name inside the `dependency array`. So basically whenever the state variable is to change and the component is to rerender then define the state variable in the `dependency array`.
 
 16. Most of the time while using the `useEffect()` hook we're going to use it this way (Empty Dependency Array):
 
