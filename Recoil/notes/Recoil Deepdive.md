@@ -44,8 +44,38 @@ npm install recoil
 
      return (
        <div>
-         <button onClick={() => setCount((c) => c + 1)}>Increase</button>
+         <button onClick={() => setCount(() => (c = c + 1))}>Increase</button>
        </div>
      );
    }
    ```
+
+### Memo:
+
+1. So in _React_ components have a default behaviour, that if a component has children components and if the parent re-renders which doesn't effect the children, still the children are bound to re-render.
+
+2. To resolve this issue and to just re-render the component whose state has changed we should wrap the components inside a _Memo_. This is done in the following way:
+
+```javascript
+const CurrentCount = memo(function () {
+  return <div>1</div>;
+});
+
+const Increase = memo(function () {
+  return (
+    <div>
+      <button>Increase</button>
+    </div>
+  );
+});
+
+const Decrease = memo(function () {
+  return (
+    <div>
+      <button>Decrease</button>
+    </div>
+  );
+});
+```
+
+3. So after we wrap a component in the _Memo_ then only if the prop/state passed down to its child component is changed, then the child will re-render else the parent re-rendering won't affect the child.

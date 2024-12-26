@@ -1,16 +1,20 @@
+import { memo, useEffect, useState } from 'react'
 import './App.css'
-import { RecoilRoot, useRecoilValue, useSetRecoilState } from "recoil";
-import { counterAtom } from './store/atoms/counter';
 
 function App() {
   return (
-    <RecoilRoot> 
       <Counter />
-    </RecoilRoot>
   )
 }
 
 function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    setInterval(() => {
+      setCount(c => c + 1); 
+    }, 3000)
+  });
 
   return <div>
     <CurrentCount />
@@ -19,31 +23,22 @@ function Counter() {
   </div> 
 }
 
-function CurrentCount() {
-  const count = useRecoilValue(counterAtom); 
+const CurrentCount = memo(function () {
   return <div>
-    {count}
+    1
   </div>
-}
+});
 
-function Increase() {
-  const setCount = useSetRecoilState(counterAtom);
-
+const Increase = memo(function () {
   return <div>
-    <button onClick={
-      () => setCount(c => c + 1)
-    }>Increase</button>
+    <button>Increase</button>
   </div>
-}
+});
 
-function Decrease() {
-  const setCount = useSetRecoilState(counterAtom);
-
+const Decrease = memo(function () {
   return <div>
-    <button onClick={
-      () => setCount(c => c - 1)
-    }>Decrease</button>
+    <button>Decrease</button>
   </div>
-} 
+}); 
 
 export default App
