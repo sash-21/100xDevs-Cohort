@@ -1,44 +1,48 @@
-import { memo, useEffect, useState } from 'react'
 import './App.css'
+import { RecoilRoot, useRecoilValue, useSetRecoilState } from 'recoil'
+import { counterAtom, evenSelector } from './store/atoms/counter'
 
 function App() {
-  return (
+  return <div>
+    <RecoilRoot>
+      <Buttons />
       <Counter />
-  )
+      <IsEven />
+    </RecoilRoot>
+  </div>
+}
+
+function Buttons() {
+  const setCount = useSetRecoilState(counterAtom);
+
+  function increase() {
+    setCount(c => c + 2);
+  }
+
+  function decrease() {
+    setCount(c => c - 1);
+  }
+
+  return <div>
+    <button onClick={increase}>Increase</button>
+    <button onClick={decrease} >Decrease</button>
+  </div>
 }
 
 function Counter() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    setInterval(() => {
-      setCount(c => c + 1); 
-    }, 3000)
-  });
+  const count = useRecoilValue(counterAtom);
 
   return <div>
-    <CurrentCount />
-    <Increase />
-    <Decrease />
-  </div> 
+    {count}
+  </div>
 }
 
-const CurrentCount = memo(function () {
-  return <div>
-    1
-  </div>
-});
+function IsEven() {
+  const isEven = useRecoilValue(evenSelector);
 
-const Increase = memo(function () {
   return <div>
-    <button>Increase</button>
+    {isEven ? "Even" : "Odd"}
   </div>
-});
+}
 
-const Decrease = memo(function () {
-  return <div>
-    <button>Decrease</button>
-  </div>
-}); 
-
-export default App
+export default App;
