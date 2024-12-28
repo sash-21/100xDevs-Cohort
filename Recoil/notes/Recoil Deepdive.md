@@ -30,6 +30,7 @@ npm install recoil
 
    - So the atom should have two attributes, the default value of the atom and the other is the key (unique identifier) of the atom. No two atoms should have the same key value.
    - To use the value of this atom we can use the `useRecoilValue()` hook, while to `setValue`, basically altercate the value of atom we use the `useSetRecoilState()` hook.
+   - To get both the value and the setter function same as the `useState()` hook we can use the `useRecoilState()` hook.
    - So first things first, we can define atoms in a separate folder named atoms, where we can create a separate file for every atom and we can import the atoms directly in our `.jsx` files.
    - This means no need to define states now in the component itself. Also the coding implementation for the above given Recoil specific hooks is as follows:
 
@@ -80,7 +81,7 @@ const Decrease = memo(function () {
 
 3. So after we wrap a component in the _Memo_ then only if the prop/state passed down to its child component is changed, then the child will re-render else the parent re-rendering won't affect the child.
 
-### Selector:
+### Selectors (Recoil)
 
 1. Selector in Recoil represents a piece of **derived state**. Here we can tell that a derived state is a part of the main state present in the _Atom_.
 
