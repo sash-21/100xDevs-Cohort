@@ -175,7 +175,7 @@ export const notifications = atom({
 export const todosAtomFamily = atomFamily({
   key: "todosAtomFamily",
   default: (id) => {
-    // writing the code to fetch todos based on the id (getting todos from a file, hitting a backend API)
+    // writing the code to fetch todos based on the id
     return todo; // finally returning the todo for that specific id
   },
 });
@@ -188,3 +188,24 @@ export const todosAtomFamily = atomFamily({
 ```typescript
 const currentAtom = useRecoilValue(todosAtomFamily(id));
 ```
+
+### Selector Family
+
+1. Now as we know that atoms cannot have asynchronous backend calls in their `default` field and for this they implement `selectors` in their `default` field.
+
+2. Similarly to make backend async calls through an `atomFamily` we have to use a `selectorFamily` in its `default` field. So this way we can fetch the data for a given ID from the backend through a async backend API call.
+
+```javascript
+export const todosAtomFamily = atom({
+  key: "todosAtomFamily",
+  default: selectorFamily({
+    key: "todosAtomFamilySelector",
+    get: async (id) => async () => {
+      const response = await axios.get(`<BACKEND API>`);
+      return res.data;
+    },
+  }),
+});
+```
+
+3. The `get` field in the `selectorFamily` is a function that returns a function, since this a family there will be multiple atoms for multiple ids and each one of then will have a different function to create an atom out of it.
