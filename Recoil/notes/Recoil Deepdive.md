@@ -141,3 +141,50 @@ function IsEven() {
 ```
 
 9. Now due to this the IsEven Component will only rerender when this derived state (selector) changes, avoiding the unwanted re-reneders.
+
+### Asynchronous Data Queries
+
+1. In the App Bar for LinkedIn the values are not hard coded and for each user the values are dynamic, like every user would have a different number of Messages, Notifications, Jobs and My Network updates.
+
+2. For this the frontend should hit a dynamic backend, fetch the requests from there and then display them on the screen. But this shoudn't be done while rendering the components on the screen rather this should be done when defining the _Atom_ which will contain all those values as state.
+
+3. For such kind of dynamic Atoms, the _default_ attribute field should contain a selector, which will contain the _async_ function which will call the backend for fetching the data.
+
+4. This method is called **Asynchronous Data Queries**. The coding implementation of it looks like this:
+
+```javascript
+export const notifications = atom({
+  key: "appBarAtom",
+  default: selector({
+    key: "appBarAtomSelector",
+    get: async () => {
+      const response = await axios.get("<BACKEND API>");
+      return response.data;
+    },
+  }),
+});
+```
+
+### Atom Family
+
+1. So if there is a use case where we have to create multiple atoms as some values are not going to ba constant and they will change for every component. Consider a _Todo Application_, here there are going to be multiple components of the Todos and each Todo will have different values, for this reason every todo should have a different Atom altogether.
+
+2. For creating multiple atoms there's a concept of atom family in the Recoil where we create muitiple Atoms from a single place. Let's look at its code first:
+
+```javascript
+export const todosAtomFamily = atomFamily({
+  key: "todosAtomFamily",
+  default: (id) => {
+    // writing the code to fetch todos based on the id (getting todos from a file, hitting a backend API)
+    return todo; // finally returning the todo for that specific id
+  },
+});
+```
+
+3. The **Atom Family** can be created using the `atomFamily` keyword as mentioned above, also it has a `key` attribute to uniquely identify the family, and the default value contains a function that does the processinng on the basis of which atoms are created.
+
+4. To subscribe to this atom family and get the required atom based on it's ID, we use the same `useRecoilValue` hook and inside it pass the variable containing the atom family passing it's ID.
+
+```typescript
+const currentAtom = useRecoilValue(todosAtomFamily(id));
+```
