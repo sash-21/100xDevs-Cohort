@@ -4,4 +4,5 @@
 3. React **(DONE)**
 4. Recoil **(DONE)**
 5. UI/UX **(DONE)**
-6. TailwindCSS **(ONGOING)**
+6. TailwindCSS **(DONE)**
+7. TypeScript **(DONE)**
