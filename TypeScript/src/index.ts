@@ -1,43 +1,18 @@
-let x: number = 1; // this is how to define integer variables in TS
-console.log(x);
-
-let s: string = "This is number 1"; // this is how to define strings in TS
-console.log(s);
-
-// Greet the User
-let username: string = "Sahil"; // raw code
-console.log(`Hello ${username}`);
-
-function hello(name: string) { // functional code 
-    console.log(`Hello, ${name}`)
-}
-hello("Sahil");
-
-// sum of 2 numbers
-function add(a: number, b: number): number {
-    return a + b;
-}
-let ans = add(21, 27);
-console.log(`The sum is ${ans}`)
-
-// check age
-function verified(age: number): boolean {
-    if (age >= 18) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-let isVerified: boolean = verified(21);
-console.log(`The person with age 21 is verified or not? ${isVerified}`);
-
-// create a function that takes another function as an input and runs after 3 seconds
-function delayedCall(fn: (a: string) => void) {
-    setTimeout(fn, 3000);
+// This is how to define and interface in TS, which can be used as user defined type
+interface User {
+    name: string,
+    age: number,
+    country: string
 }
 
-function great(s: string): void {
-    console.log(`Hello, ${s}`);
+function greet(user: User) {
+    console.log(`Hello ${user.name}, your age is ${user.age} and your country is ${user.country}`)
 }
-delayedCall(() => great("Sakshi"));
+
+let user = {
+    name: "Sahil",
+    age: 22,
+    country: "India"
+}
+
+greet(user);

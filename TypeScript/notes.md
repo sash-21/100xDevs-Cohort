@@ -41,3 +41,19 @@ let value: number | string = 11; // used OR to assign both number & string to th
 value = "eleven";
 console.log(value);
 ```
+
+2. We can define **Interfaces** in TS in the following manner, which can be used as a _complex_, _user defined_ type:
+
+```typescript
+interface User {
+  name: string;
+  age: number;
+  country: string;
+}
+
+let user: User = {
+  name: "Sahil",
+  age: 22,
+  country: "India",
+};
+```
