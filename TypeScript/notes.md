@@ -203,3 +203,26 @@ let nums: number[] = [9, 4, 7, 2, 5, 8, 11, 1];
 let maxNum = returnMax(nums);
 console.log(`The max number in the array is ${maxNum}`);
 ```
+
+### ----------Enums----------
+
+10. Enums in TS can be declared as following. If not given any explicit values to them, the first enum would have value `0` and this would keep on going so on till the last one.
+
+```typescript
+enum Direction {
+  UP, // 0
+  DOWN, // 1
+  RIGHT, // 2
+  LEFT, // 3
+}
+```
+
+11. In express we can define values for the status codes too in this way:
+
+```typescript
+enum ResponseStatus {
+  SUCCESS = 200,
+  NOTFOUND = 404,
+  ERROR = 500,
+}
+```
