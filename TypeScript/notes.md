@@ -182,3 +182,24 @@ const teamLead: TeamLead = {
   department: "Engineering",
 };
 ```
+
+### ----------Arrays----------
+
+9. The arrays are declared in Typescript just by simply using `[]` in front of the type defined for the variable.
+
+```typescript
+function returnMax(numList: number[]) {
+  let maxi = 0;
+  for (let i = 0; i < numList.length; i++) {
+    if (numList[i] > maxi) {
+      maxi = numList[i];
+    }
+  }
+  return maxi;
+}
+
+let nums: number[] = [9, 4, 7, 2, 5, 8, 11, 1];
+
+let maxNum = returnMax(nums);
+console.log(`The max number in the array is ${maxNum}`);
+```
