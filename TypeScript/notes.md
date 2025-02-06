@@ -251,3 +251,44 @@ function displayUserProfile(user: UserProfile): void {
   );
 }
 ```
+
+### ----------Partial----------
+
+1. Partial makes all properties of a type optional, creating a type with the same properties, but each marked as optional.
+
+```typescript
+// this is the original interface
+interface User {
+  name: string;
+  email: string;
+  image: string;
+}
+
+// partial one looks something like this
+interface User {
+  name?: string;
+  email?: string;
+  image?: string;
+}
+```
+
+2. So basically `Partial` creates a copy of the original type or interface having optional values.
+3. The Partial API can be implemented this way:
+
+```typescript
+interface User {
+  name: string;
+  id: number;
+  email: string;
+  image: string;
+}
+
+type UserDetails = Pick<User, "name" | "email" | "id">;
+type UserDetailsOptional = Partial<UserDetails>;
+
+function showUserDetails(details: UserDetailsOptional) {
+  // some processing
+}
+
+showUserDetails([]);
+```

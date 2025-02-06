@@ -1,1 +1,1 @@
-{"root":["./src/arrays.ts","./src/enums.ts","./src/index.ts","./src/interfaces.ts","./src/pick.ts","./src/types.ts"],"version":"5.7.3"}
+{"root":["./src/arrays.ts","./src/enums.ts","./src/index.ts","./src/interfaces.ts","./src/partial.ts","./src/pick.ts","./src/types.ts"],"version":"5.7.3"}
