@@ -10,7 +10,7 @@ function greet(user: User) {
     console.log(`Hello ${user.name}, your age is ${user.age} and your country is ${user.country}`)
 }
 
-let user = {
+let user: User = {
     name: "Sahil",
     age: 22,
     country: "India"

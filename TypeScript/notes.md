@@ -226,3 +226,28 @@ enum ResponseStatus {
   ERROR = 500,
 }
 ```
+
+## Some Other Advanced APIs
+
+### ----------Pick----------
+
+1. The Pick API is used to pick values from another type or interface to create a new interface or type. It can be used as follows:
+
+```typescript
+interface UserData {
+  id: number;
+  name: string;
+  age: number;
+  email: string;
+  password: string;
+}
+
+// created the UserProfile type using the fields from the UserData interface
+type UserProfile = Pick<UserData, "id" | "name" | "email" | "age">;
+
+function displayUserProfile(user: UserProfile): void {
+  console.log(
+    `UserID: ${user.id} \nName: ${user.name} \nEmail: ${user.email} \nAge: ${user.age}`
+  );
+}
+```
