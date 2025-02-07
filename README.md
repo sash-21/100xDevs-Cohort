@@ -5,4 +5,5 @@
 4. Recoil **(DONE)**
 5. UI/UX **(DONE)**
 6. TailwindCSS **(DONE)**
-7. TypeScript **(ONGOING)**
+7. TypeScript **(DONE)**
+8. PostgreSQL **(ONGOING)**
