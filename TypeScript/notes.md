@@ -292,3 +292,63 @@ function showUserDetails(details: UserDetailsOptional) {
 
 showUserDetails([]);
 ```
+
+### ----------ReadOnly----------
+
+1. The `Readonly` API creates just a read only version of an object / array in Typescript. So in TS we can update the values present in an object or array to avoid that we use `readonly` API.
+
+2. Readonly can be defined in 2 ways. If we just want some specific values of an object to be readonly then we can use this.
+
+```typescript
+type Human = {
+  readonly name: string;
+  age: number;
+  readonly country: string;
+};
+
+const obj: Human = {
+  name: "John",
+  age: 25,
+  country: "USA",
+};
+```
+
+3. While if we want the whole object to be readonly then we can also use this:
+
+```typescript
+type Human = {
+  name: string;
+  age: number;
+  country: string;
+};
+
+const obj: Readonly<Human> = {
+  name: "John",
+  age: 25,
+  country: "USA",
+};
+```
+
+### ----------Record----------
+
+1. Record basically helps to consolidate a complex type or interface in a simplified manner. We can just specify the types of the keys and values in the Record for the complex values.
+
+```typescript
+type Users = {
+  name: string;
+  age: number;
+};
+
+type UsersData = Record<string, Users>;
+
+const users: UsersData = {
+  "ras@qd1": {
+    name: "Sahil",
+    age: 22,
+  },
+  "xyz@p34": {
+    name: "Sakshi",
+    age: 20,
+  },
+};
+```
