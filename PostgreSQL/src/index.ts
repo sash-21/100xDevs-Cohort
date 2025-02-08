@@ -5,7 +5,7 @@ const app: Express = express();
 
 app.use(express.json());
 
-const pgClient = new Client("postgresql://neondb_owner:npg_Bnu8y2vCZGMP@ep-rapid-voice-a55y22eh-pooler.us-east-2.aws.neon.tech/neondb?sslmode=require");
+const pgClient = new Client("<URI>");
 
 pgClient.connect();
 
@@ -39,6 +39,21 @@ app.post("/signup", async (req: Request, res: Response) => {
             message: "Some error occured while signing up!"
         });
     }
+});
+
+app.get("/metadata", async (req: Request, res: Response) => {
+    const id = req.query.id;
+
+    const userQuery = `SELECT username, email FROM Users WHERE id=$1;`;
+    const response1 = await pgClient.query(userQuery, [id]);
+
+    const addressQuery = `SELECT * FROM Addresses WHERE user_id=$1;`;
+    const response2 = await pgClient.query(addressQuery, [id]);
+
+    res.json({
+        user: response1.rows[0],
+        address: response2.rows[0]
+    });
 });
 
 app.listen(3000, () => {
