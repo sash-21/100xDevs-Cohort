@@ -95,3 +95,26 @@ res.json({
 1. A Transaction ensures that when a bunch of queries are running together, then all of them must run or none of them must run. Hence a Transaction never leaves a DB in partial state.
 
 2. It is implemented using `BEGIN` & `COMMIT` statements.
+
+### Joins
+
+1. A `JOIN` is used when two tables are in a relationship and we want the data from both the tables in a combined singular table. We use some queries like these:
+
+```sql
+SELECT u.id, u.username, u.email, a.street, a.city, a.country, a.pincode
+FROM Users u
+JOIN Addresses a ON u.id = a.user_id
+WHERE u.id = 1;
+```
+
+2. So in the above query we are retrieving some columns of users table while also some columns of the addresses table and forming a combined table on the basis of the user id field which has a one on one relation between two tables.
+
+3. There are 4 types of Joins:
+
+   - `INNER JOIN`: This is the regular one, if the users table has a user entry for which there's no entry in the address table then this would return an empty array of records. This means _Table A should have a record AND Table B should have a corresponding record_ only then it would return a value.
+
+   - `LEFT JOIN`: This one returns the values from the left table or from the one which we're creating the join. So for a user of there's no address even then the `LEFT JOIN` would return a record containing the user data. This means _Table A should have a record AND Table B is optional to have a record_ only then it would return a value.
+
+   - `RIGHT JOIN`: This is the total opposite of the left join. Suppose the address table has an address which is correspondent to not one in the users table then the `RIGHT JOIN` would return a record containing the address data. This means _Table A is optional to have a record AND Table B should have a record_ only then it would return a value.
+
+   - `FULL JOIN`: This takes all the data from both the tables which have no correspondents in the other table and also takes the data which do have correspondents. This means _Table A is optional to have a record AND Table B is optional to have a record_.

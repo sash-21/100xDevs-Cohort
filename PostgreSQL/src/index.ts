@@ -5,7 +5,7 @@ const app: Express = express();
 
 app.use(express.json());
 
-const pgClient = new Client("<URI>");
+const pgClient = new Client("postgresql://neondb_owner:npg_Bnu8y2vCZGMP@ep-rapid-voice-a55y22eh-pooler.us-east-2.aws.neon.tech/neondb?sslmode=require");
 
 pgClient.connect();
 
@@ -52,7 +52,19 @@ app.get("/metadata", async (req: Request, res: Response) => {
 
     res.json({
         user: response1.rows[0],
-        address: response2.rows[0]
+        address: response2.rows
+    });
+});
+
+app.get("/betadata", async (req: Request, res: Response) => {
+    const id = req.query.id;
+
+    const dataQuery = `SELECT u.id, u.username, u.email, a.street, a.city, a.country, a.pincode FROM Users u JOIN Addresses a ON u.id = a.user_id WHERE u.id = $1;`;
+
+    const response = await pgClient.query(dataQuery, [id]);
+
+    res.json({
+        userDetails: response.rows
     });
 });
 

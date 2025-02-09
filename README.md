@@ -6,4 +6,5 @@
 5. UI/UX **(DONE)**
 6. TailwindCSS **(DONE)**
 7. TypeScript **(DONE)**
-8. PostgreSQL **(ONGOING)**
+8. PostgreSQL **(DONE)**
+9. Prisma **(NOT STARTED)**
