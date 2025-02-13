@@ -7,4 +7,4 @@
 6. TailwindCSS **(DONE)**
 7. TypeScript **(DONE)**
 8. PostgreSQL **(DONE)**
-9. Prisma **(NOT STARTED)**
+9. Prisma **(ONGOING)**
