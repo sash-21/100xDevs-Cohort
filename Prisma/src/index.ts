@@ -1,52 +1,82 @@
 import { PrismaClient } from "@prisma/client"
+import express, { Express } from "express";
 
 const client = new  PrismaClient();
+const app: Express = express();
 
+// gets the user details for all the users present
+app.get("/users", async (req, res) => {
+    const users = await client.user.findMany(); 
 
-async function createUser() {
+    console.log("Retrieved All Users Successfully!");
+    res.json({
+        userData: users
+    });
+});
+
+// gets the todo details for a specific user
+app.get("/users/:id", async (req, res) => {
+    const userId: number = parseInt(req.params.id);
+
+    const userData = await client.user.findFirst({
+        where: {
+            id: userId
+        },
+        include: {
+            todo: true
+        }
+    });
+
+    console.log("Retrieved User Data Successfully");
+    res.json({
+        userData: userData
+    });
+});
+
+app.post("/createuser", async (req, res) => {
+    const {username, password, age, city} = req.body;
+
     await client.user.create({
         data: {
-            username: "akshay.jain",
-            password: "123123",
-            age: 25,
-            city: "San Francisco"
+            username: username,
+            password: password,
+            age: age,
+            city: city
         }
     });
-    console.log("Data Inserted in the DB!");
-}
+    console.log("Data Inserted Successfully");
+});
 
-async function deleteUser() {
+app.delete("/deleteuser/:id", async (req, res) => {
+    const userId: number = parseInt(req.params.id);
+
     await client.user.delete({
         where: {
-            id: 3
+            id: userId
         }
     });
-    console.log("Data Deleted from the DB!");
-}
+    console.log(`User with ID ${userId} Deleted`)
+});
 
-async function updateUser() {
-    await client.user.update({
+app.put("/updateuser/:id", async (req, res) => {
+    const userId: number = parseInt(req.params.id);
+    const {parameter, value} = req.body;
+
+    const response = await client.user.update({
         where: {
-            id: 1
-        },
+            id: userId
+        }, 
         data: {
-            city: "Madrid"
+            [parameter]: value
         }
     });
-    console.log("Data Updated of the DB!");
-}
 
-async function readUser() {
-    const data = await client.user.findFirst({
-        where: {
-            id: 2
-        }
+    console.log("User Data Updated Successfully");
+    res.json({
+        status: "Data Updated"
     });
-    console.log("Data Extracted from the DB!");
-    console.log(data);
-}
+});
 
-// createUser();
-// deleteUser();
-// updateUser();
-readUser();
+app.listen(3000, () => {
+    console.log("Server started on PORT 3000");
+});
