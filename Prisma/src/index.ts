@@ -1,8 +1,11 @@
 import { PrismaClient } from "@prisma/client"
 import express, { Express } from "express";
+import bcrypt from "bcrypt";
 
 const client = new  PrismaClient();
 const app: Express = express();
+
+app.use(express.json());
 
 // gets the user details for all the users present
 app.get("/users", async (req, res) => {
@@ -34,17 +37,24 @@ app.get("/users/:id", async (req, res) => {
 });
 
 app.post("/createuser", async (req, res) => {
-    const {username, password, age, city} = req.body;
+    console.log("Recieved request body!", req.body);
+    const { username, password, age, city } = req.body;
+
+    const hashedPassword = await bcrypt.hash(password, 12);
 
     await client.user.create({
         data: {
             username: username,
-            password: password,
+            password: hashedPassword,
             age: age,
             city: city
         }
     });
     console.log("Data Inserted Successfully");
+
+    res.status(201).json({
+        message: "User Create Succesfully!"
+    });
 });
 
 app.delete("/deleteuser/:id", async (req, res) => {
